@@ -1,0 +1,20 @@
+<mat-list-item *ngFor="let group of groups;">
+  <mat-checkbox (change)="onGroupChange(group.id, $event)" [checked]="group.isSelected"
+      [indeterminate]="group.isIndeterminate">
+      {{group.name}}
+  </mat-checkbox>
+  <ng-container *ngIf="group.isSelected && group.id == execGlanceId">
+      <button mat-icon-button class="btn-sm" (click)="updateInstance()" [disabled]="updating"
+          color="primary">
+          <mat-icon [class.rotate]="updating">cached</mat-icon>
+      </button>
+  </ng-container>
+  <div class="options ml-md-4" *ngIf='group.deliverables  && group.deliverables.length'>
+      <mat-list-item *ngFor="let deliverable of group.deliverables;">
+          <mat-checkbox [checked]="deliverable.isSelected"
+              (change)="onDashboardChange(group.id, deliverable.id, $event)">
+              {{deliverable.name}}
+          </mat-checkbox>
+      </mat-list-item>
+  </div>
+</mat-list-item>
